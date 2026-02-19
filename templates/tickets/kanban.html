@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Kanban Board{% endblock %}
+
+{% block extra_css %}
+<style>
+    .kanban-board {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(285px, 1fr);
+        gap: 14px;
+        overflow-x: auto;
+        padding: 2px 2px 8px;
+    }
+
+    .kanban-column {
+        min-width: 285px;
+    }
+
+    .kanban-title {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 800;
+    }
+
+    .kanban-count {
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        background: rgba(255, 255, 255, 0.52);
+        color: #2d4460;
+        min-width: 30px;
+        text-align: center;
+        padding: 4px 8px;
+        font-size: 0.72rem;
+        font-weight: 760;
+    }
+
+    .kanban-col {
+        min-height: 560px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: linear-gradient(160deg, rgba(245, 251, 255, 0.56), rgba(224, 237, 255, 0.42));
+        box-shadow: 0 18px 34px rgba(9, 18, 35, 0.14);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 12px;
+    }
+
+    .kanban-card {
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.76), rgba(243, 250, 255, 0.62));
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        padding: 14px;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        box-shadow: 0 14px 24px rgba(8, 16, 32, 0.11);
+        cursor: grab;
+        border-left: 4px solid #2f7acc;
+        transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+
+    .kanban-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 30px rgba(8, 16, 32, 0.16);
+    }
+
+    .priority-critical {
+        border-left-color: #b2203b;
+    }
+
+    .priority-high {
+        border-left-color: #d6a522;
+    }
+
+    .priority-medium {
+        border-left-color: #2f7acc;
+    }
+
+    .priority-low {
+        border-left-color: #26a17b;
+    }
+
+    .kanban-card .ticket-id,
+    .kanban-card .ticket-owner {
+        font-weight: 700;
+        color: #4a607d !important;
+    }
+
+    .kanban-card p {
+        color: #516882 !important;
+    }
+
+    .kanban-card a {
+        color: #102742;
+    }
+
+    .kanban-card .kanban-edit {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(149, 172, 200, 0.52);
+        background: rgba(255, 255, 255, 0.56);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .kanban-card .kanban-edit:hover {
+        background: rgba(16, 39, 66, 0.1);
+        color: #0a1c31;
+    }
+
+    @media (max-width: 768px) {
+        .kanban-board {
+            grid-auto-columns: minmax(250px, 84vw);
+        }
+
+        .kanban-col {
+            min-height: 440px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="kanban-board">
+    <!-- Open Column -->
+    <section class="kanban-column">
+        <h6 class="kanban-title text-danger">Open <span class="kanban-count">{{ open_tickets.count }}</span></h6>
+        <div class="kanban-col">
+            {% for ticket in open_tickets %}
+            {% include 'tickets/kanban_card.html' with ticket=ticket %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- In Progress Column -->
+    <section class="kanban-column">
+        <h6 class="kanban-title text-warning">In Progress <span class="kanban-count">{{ in_progress_tickets.count }}</span></h6>
+        <div class="kanban-col">
+            {% for ticket in in_progress_tickets %}
+            {% include 'tickets/kanban_card.html' with ticket=ticket %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Resolved Column -->
+    <section class="kanban-column">
+        <h6 class="kanban-title text-info">Resolved <span class="kanban-count">{{ resolved_tickets.count }}</span></h6>
+        <div class="kanban-col">
+            {% for ticket in resolved_tickets %}
+            {% include 'tickets/kanban_card.html' with ticket=ticket %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Closed Column -->
+    <section class="kanban-column">
+        <h6 class="kanban-title text-success">Closed <span class="kanban-count">{{ closed_tickets.count }}</span></h6>
+        <div class="kanban-col">
+            {% for ticket in closed_tickets %}
+            {% include 'tickets/kanban_card.html' with ticket=ticket %}
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

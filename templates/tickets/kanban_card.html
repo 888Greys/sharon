@@ -1,0 +1,16 @@
+<div class="kanban-card priority-{{ ticket.priority }}">
+    <div class="d-flex justify-content-between">
+        <small class="ticket-id">#{{ ticket.id }}</small>
+        <span class="chip-soft">{{ ticket.priority|capfirst }}</span>
+    </div>
+    <h6 class="mt-2 fw-bold">
+        <a href="{% url 'tickets:detail' ticket.id %}" class="text-decoration-none">{{ ticket.title }}</a>
+    </h6>
+    <p class="small mb-2">{{ ticket.description|truncatechars:66 }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+        <small class="ticket-owner">{{ ticket.assigned_to.first_name|default:"Unassigned" }}</small>
+        <a href="{% url 'tickets:update' ticket.id %}" class="kanban-edit text-decoration-none" aria-label="Edit ticket {{ ticket.id }}">
+            <i class="bi bi-pencil-square"></i>
+        </a>
+    </div>
+</div>

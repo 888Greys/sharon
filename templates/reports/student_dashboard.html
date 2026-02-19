@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block page_title %}My Support{% endblock %}
+
+{% block content %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    Alert: Campus Wi-Fi is undergoing maintenance this Saturday.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+    <div>
+        <h4 class="mb-1">Need help?</h4>
+        <p class="text-muted mb-0">Create a ticket and track progress in one place.</p>
+    </div>
+    <a href="{% url 'tickets:create' %}" class="btn btn-primary btn-lg" aria-label="Create a new ticket">Create Ticket</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm metric-card">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Open Tickets</div>
+                    <div class="metric-value">{{ open_tickets }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-folder2-open"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm metric-card">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Resolved Tickets</div>
+                    <div class="metric-value">{{ resolved_tickets }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-check2-circle"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm metric-card">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Pending Action</div>
+                    <div class="metric-value">{{ pending_action }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-hourglass-split"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="fw-bold">My Tickets</div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle d-none d-md-table">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Subject</th>
+                                <th>Category</th>
+                                <th>Date Submitted</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in tickets %}
+                            <tr>
+                                <td>#{{ ticket.id }}</td>
+                                <td>{{ ticket.title }}</td>
+                                <td>{{ ticket.category.name|default:"Uncategorized" }}</td>
+                                <td>{{ ticket.created_at|timesince }} ago</td>
+                                <td>
+                                    {% if ticket.status == 'open' %}
+                                    <span class="badge badge-status status-open">Open</span>
+                                    {% elif ticket.status == 'in_progress' %}
+                                    <span class="badge badge-status status-in-progress">In Progress</span>
+                                    {% else %}
+                                    <span class="badge badge-status status-resolved">Resolved</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'tickets:detail' ticket.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6">
+                                    <div class="empty-state">
+                                        <h6>No tickets yet</h6>
+                                        <p>Create a ticket when you need help and track it here.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="mobile-stack d-md-none">
+                        {% for ticket in tickets %}
+                        <div class="mobile-card-row">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="fw-bold">#{{ ticket.id }}</div>
+                                {% if ticket.status == 'open' %}
+                                <span class="badge badge-status status-open">Open</span>
+                                {% elif ticket.status == 'in_progress' %}
+                                <span class="badge badge-status status-in-progress">In Progress</span>
+                                {% else %}
+                                <span class="badge badge-status status-resolved">Resolved</span>
+                                {% endif %}
+                            </div>
+                            <div class="mb-2">{{ ticket.title }}</div>
+                            <div class="mobile-label">Category</div>
+                            <div class="mb-2">{{ ticket.category.name|default:"Uncategorized" }}</div>
+                            <div class="mobile-label">Submitted</div>
+                            <div class="mb-2">{{ ticket.created_at|timesince }} ago</div>
+                            <a href="{% url 'tickets:detail' ticket.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                        {% empty %}
+                        <div class="mobile-card-row">
+                            <div class="empty-state">
+                                <h6>No tickets yet</h6>
+                                <p>Create a ticket when you need help and track it here.</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="fw-bold">Did You Know?</div>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">{{ quick_tip }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block page_title %}My Tickets{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between mb-4">
+    <a href="{% url 'tickets:create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Create New Ticket
+    </a>
+    <form class="d-flex" method="get" role="search" aria-label="Search tickets">
+        <input class="form-control me-2" type="search" placeholder="Search tickets..." name="q"
+            value="{{ request.GET.q }}">
+        <button class="btn btn-outline-primary" type="submit" data-loading-text="Searching...">Search</button>
+    </form>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive" aria-live="polite">
+            <table class="table table-hover d-none d-md-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Category</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td>#{{ ticket.id }}</td>
+                        <td>
+                            <a href="{% url 'tickets:detail' ticket.id %}">{{ ticket.title }}</a>
+                        </td>
+                        <td>
+                            <span class="badge badge-status status-{{ ticket.status }}">
+                                {{ ticket.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if ticket.priority == 'critical' %}
+                            <span class="badge badge-priority badge-priority-critical">Critical</span>
+                            {% elif ticket.priority == 'high' %}
+                            <span class="badge badge-priority badge-priority-high">High</span>
+                            {% else %}
+                            <span class="badge badge-priority badge-priority-{{ ticket.priority }}">{{ ticket.get_priority_display }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ ticket.category.name|default:"Uncategorized" }}</td>
+                        <td>{{ ticket.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'tickets:detail' ticket.id %}"
+                                class="btn btn-sm btn-outline-primary">View</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <h6>No tickets found</h6>
+                                <p>Try a different search or create a new ticket.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="mobile-stack d-md-none">
+                {% for ticket in tickets %}
+                <div class="mobile-card-row">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="fw-bold">#{{ ticket.id }}</div>
+                        <span class="badge badge-status status-{{ ticket.status }}">{{ ticket.get_status_display }}</span>
+                    </div>
+                    <div class="mb-2">{{ ticket.title }}</div>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        {% if ticket.priority == 'critical' %}
+                        <span class="badge badge-priority badge-priority-critical">Critical</span>
+                        {% elif ticket.priority == 'high' %}
+                        <span class="badge badge-priority badge-priority-high">High</span>
+                        {% elif ticket.priority == 'medium' %}
+                        <span class="badge badge-priority badge-priority-medium">Medium</span>
+                        {% else %}
+                        <span class="badge badge-priority badge-priority-low">Low</span>
+                        {% endif %}
+                        <span class="chip-soft">{{ ticket.category.name|default:"Uncategorized" }}</span>
+                    </div>
+                    <div class="mobile-label">Created</div>
+                    <div class="mb-2">{{ ticket.created_at|date:"M d, Y" }}</div>
+                    <a href="{% url 'tickets:detail' ticket.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                </div>
+                {% empty %}
+                <div class="mobile-card-row">
+                    <div class="empty-state">
+                        <h6>No tickets found</h6>
+                        <p>Try a different search or create a new ticket.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

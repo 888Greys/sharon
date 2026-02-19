@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+<div class="d-flex justify-content-between align-items-center">
+    <span>Overview</span>
+    <a href="{% url 'reports:export_csv' %}" class="btn btn-sm btn-primary shadow-sm">
+        <i class="bi bi-download fa-sm text-white-50"></i> Generate Report
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row g-3 mb-2">
+    <div class="col-xl-3 col-md-6 mb-2">
+        <div class="card metric-card h-100 border-left-primary">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Total Tickets</div>
+                    <div class="metric-value">{{ total_tickets }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-ticket-fill"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-2">
+        <div class="card metric-card h-100 border-left-success">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Resolved</div>
+                    <div class="metric-value">{{ resolved_tickets }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-check-circle-fill"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-2">
+        <div class="card metric-card h-100 border-left-warning">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Pending</div>
+                    <div class="metric-value">{{ open_tickets }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-exclamation-circle-fill"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-2">
+        <div class="card metric-card h-100 border-left-info">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Avg Resolution Time</div>
+                    <div class="metric-value">{{ avg_resolution_time }}h</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-clock-history"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Pie Chart -->
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Ticket Status</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Area Chart -->
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Tickets Overview (Last 7 Days)</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Fetch chart data
+        fetch("{% url 'reports:chart_data' %}")
+            .then(response => response.json())
+            .then(data => {
+                // Pie Chart
+                const statusCtx = document.getElementById("statusChart");
+                const statusLabels = data.status_dist.map(item => item.status.toUpperCase().replace('_', ' '));
+                const statusCounts = data.status_dist.map(item => item.count);
+
+                new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: statusLabels,
+                        datasets: [{
+                            data: statusCounts,
+                            backgroundColor: ['#2f7acc', '#d6a522', '#26a17b', '#b2203b'],
+                            hoverBackgroundColor: ['#235f9f', '#ad8419', '#1d7f61', '#8a1a30'],
+                            borderColor: 'rgba(255, 255, 255, 0.74)',
+                            hoverBorderColor: 'rgba(255, 255, 255, 0.92)',
+                            borderWidth: 2,
+                        }],
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        cutout: '72%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#4a607d',
+                                    boxWidth: 12,
+                                    padding: 14,
+                                },
+                            },
+                        },
+                    },
+                });
+
+                // Line Chart
+                const activityCtx = document.getElementById("activityChart");
+                const activityLabels = data.daily_activity.map(item => item.day);
+                const activityCounts = data.daily_activity.map(item => item.count);
+
+                new Chart(activityCtx, {
+                    type: 'line',
+                    data: {
+                        labels: activityLabels,
+                        datasets: [{
+                            label: "New Tickets",
+                            tension: 0.36,
+                            fill: true,
+                            backgroundColor: "rgba(210, 56, 80, 0.12)",
+                            borderColor: "rgba(210, 56, 80, 0.98)",
+                            pointRadius: 3.4,
+                            pointBackgroundColor: "rgba(210, 56, 80, 0.98)",
+                            pointBorderColor: "rgba(255, 255, 255, 0.92)",
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(210, 56, 80, 1)",
+                            pointHoverBorderColor: "rgba(255, 255, 255, 1)",
+                            pointHitRadius: 10,
+                            pointBorderWidth: 2,
+                            data: activityCounts,
+                        }],
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        layout: { padding: { left: 10, right: 25, top: 25, bottom: 0 } },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#4a607d',
+                                },
+                            },
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    color: 'rgba(151, 176, 208, 0.24)',
+                                },
+                                ticks: {
+                                    color: '#556c88',
+                                },
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(151, 176, 208, 0.24)',
+                                },
+                                ticks: {
+                                    color: '#556c88',
+                                },
+                            },
+                        },
+                    }
+                });
+            });
+    });
+</script>
+{% endblock %}

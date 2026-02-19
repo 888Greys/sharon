@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Staff Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+    <div>
+        <h4 class="mb-1">Operational Queue</h4>
+        <p class="text-muted mb-0">Manage assigned and unassigned tickets efficiently.</p>
+    </div>
+    <form class="d-flex" method="get" role="search" aria-label="Search tickets">
+        <input class="form-control me-2" type="search" placeholder="Search by ID, title, or username" name="q"
+            value="{{ query }}">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm metric-card">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">My Open Tickets</div>
+                    <div class="metric-value">{{ my_open_tickets }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-list-task"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm metric-card">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">High / Critical</div>
+                    <div class="metric-value">{{ high_priority }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-exclamation-diamond"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm metric-card">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Escalated</div>
+                    <div class="metric-value">{{ escalated }}</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-flag-fill"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm metric-card">
+            <div class="card-body">
+                <div>
+                    <div class="metric-label">Avg Response Time</div>
+                    <div class="metric-value">{{ avg_response_time }}h</div>
+                </div>
+                <span class="metric-icon"><i class="bi bi-stopwatch"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+        <div class="fw-bold">Main Ticket Queue</div>
+    </div>
+    <div class="card-body">
+        <form method="post" id="bulkForm">
+            {% csrf_token %}
+            <input type="hidden" name="ticket_id" id="actionTicketId">
+            <input type="hidden" name="action" id="actionType">
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                <select class="form-select form-select-sm w-auto" name="bulk_action" aria-label="Bulk actions">
+                    <option value="assign">Assign Selected</option>
+                    <option value="close">Close Selected</option>
+                </select>
+                <button class="btn btn-primary btn-sm" type="submit" data-loading-text="Applying...">Apply</button>
+            </div>
+            <div class="table-responsive" aria-live="polite">
+                <table class="table table-hover align-middle d-none d-md-table">
+                    <thead>
+                        <tr>
+                            <th scope="col"><input type="checkbox" id="selectAll"></th>
+                            <th scope="col">Ticket ID</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Requester</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">SLA</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in tickets %}
+                        <tr>
+                            <td><input type="checkbox" name="selected_tickets" value="{{ ticket.id }}"></td>
+                            <td>#TKT-{{ ticket.id }}</td>
+                            <td>
+                                <a href="{% url 'tickets:detail' ticket.id %}" class="text-decoration-none">
+                                    {{ ticket.title }}
+                                </a>
+                            </td>
+                            <td>{{ ticket.category.name|default:"Uncategorized" }}</td>
+                            <td>{{ ticket.created_by.get_full_name|default:ticket.created_by.username }}</td>
+                            <td>
+                                {% if ticket.priority == 'critical' %}
+                                <span class="badge badge-priority badge-priority-critical">Critical</span>
+                                {% elif ticket.priority == 'high' %}
+                                <span class="badge badge-priority badge-priority-high">High</span>
+                                {% elif ticket.priority == 'medium' %}
+                                <span class="badge badge-priority badge-priority-medium">Medium</span>
+                                {% else %}
+                                <span class="badge badge-priority badge-priority-low">Low</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge badge-status status-{{ ticket.status }}">{{ ticket.get_status_display }}</span>
+                            </td>
+                            <td>
+                                {% if ticket.sla_due %}
+                                <span class="small text-muted">{{ ticket.sla_due }}</span>
+                                {% elif ticket.priority == 'high' or ticket.priority == 'critical' %}
+                                <span class="small text-muted">SLA pending</span>
+                                {% else %}
+                                <span class="small text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td class="d-flex gap-2">
+                                <a class="btn btn-sm btn-outline-primary" href="{% url 'tickets:detail' ticket.id %}">View</a>
+                                <button class="btn btn-sm btn-primary" type="button"
+                                    onclick="submitTicketAction({{ ticket.id }}, 'assign')">
+                                    Assign
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" type="button"
+                                    onclick="submitTicketAction({{ ticket.id }}, 'close')">
+                                    Close
+                                </button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9">
+                                <div class="empty-state">
+                                    <h6>No tickets in your queue</h6>
+                                    <p>You're all caught up. Check back later for new assignments.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="mobile-stack d-md-none">
+                    {% for ticket in tickets %}
+                    <div class="mobile-card-row">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="fw-bold">#TKT-{{ ticket.id }}</div>
+                            <span class="badge badge-status status-{{ ticket.status }}">{{ ticket.get_status_display }}</span>
+                        </div>
+                        <div class="mb-2">{{ ticket.title }}</div>
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            {% if ticket.priority == 'critical' %}
+                            <span class="badge badge-priority badge-priority-critical">Critical</span>
+                            {% elif ticket.priority == 'high' %}
+                            <span class="badge badge-priority badge-priority-high">High</span>
+                            {% elif ticket.priority == 'medium' %}
+                            <span class="badge badge-priority badge-priority-medium">Medium</span>
+                            {% else %}
+                            <span class="badge badge-priority badge-priority-low">Low</span>
+                            {% endif %}
+                            <span class="chip-soft">{{ ticket.category.name|default:"Uncategorized" }}</span>
+                        </div>
+                        <div class="mobile-label">Requester</div>
+                        <div class="mb-2">{{ ticket.created_by.get_full_name|default:ticket.created_by.username }}</div>
+                        {% if ticket.sla_due %}
+                        <div class="mobile-label">SLA</div>
+                        <div class="mb-2">{{ ticket.sla_due }}</div>
+                        {% endif %}
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" href="{% url 'tickets:detail' ticket.id %}">View</a>
+                            <button class="btn btn-sm btn-primary" type="button" onclick="submitTicketAction({{ ticket.id }}, 'assign')">Assign</button>
+                            <button class="btn btn-sm btn-outline-danger" type="button" onclick="submitTicketAction({{ ticket.id }}, 'close')">Close</button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="mobile-card-row">
+                        <div class="empty-state">
+                            <h6>No tickets in your queue</h6>
+                            <p>You're all caught up. Check back later for new assignments.</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const selectAll = document.getElementById('selectAll');
+    if (selectAll) {
+        selectAll.addEventListener('change', () => {
+            document.querySelectorAll('input[name="selected_tickets"]').forEach((box) => {
+                box.checked = selectAll.checked;
+            });
+        });
+    }
+
+    function submitTicketAction(ticketId, action) {
+        const form = document.getElementById('bulkForm');
+        document.getElementById('actionTicketId').value = ticketId;
+        document.getElementById('actionType').value = action;
+        form.submit();
+    }
+</script>
+{% endblock %}

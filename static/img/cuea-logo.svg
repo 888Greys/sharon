@@ -1,0 +1,6 @@
+<svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="60" rx="12" fill="#B11226"/>
+  <path d="M30 16H44C50.6274 16 56 21.3726 56 28C56 34.6274 50.6274 40 44 40H30V16Z" fill="#FFFFFF"/>
+  <path d="M34 22H43C46.3137 22 49 24.6863 49 28C49 31.3137 46.3137 34 43 34H34V22Z" fill="#B11226"/>
+  <text x="70" y="36" fill="#FFFFFF" font-family="Georgia, serif" font-size="24" font-weight="700">CUEA</text>
+</svg>
