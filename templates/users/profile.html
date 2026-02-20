@@ -21,7 +21,7 @@
                         {% endfor %}
                     </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                    <button type="submit" class="btn btn-primary" data-loading-text="Saving profile...">Update Profile</button>
                 </form>
             </div>
         </div>
@@ -34,10 +34,23 @@
             </div>
             <div class="card-body">
                 <p><strong>Username:</strong> {{ user.username }}</p>
-                <p><strong>Role:</strong> <span class="chip-soft">{{ user.get_role_display }}</span></p>
+                <p><strong>Role:</strong> <span class="badge bg-secondary">{{ user.get_role_display }}</span></p>
                 <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+</style>
 {% endblock %}

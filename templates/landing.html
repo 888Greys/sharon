@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block title %}CUEA ICT Help Desk{% endblock %}
@@ -8,378 +8,167 @@
 {% block extra_css %}
 <style>
     :root {
-        --landing-text: #eef5ff;
-        --landing-subtext: #c4d3e7;
-        --landing-panel: rgba(9, 23, 45, 0.42);
-        --landing-line: rgba(255, 255, 255, 0.26);
-        --landing-soft: rgba(248, 252, 255, 0.12);
-        --landing-soft-strong: rgba(248, 252, 255, 0.2);
+        --cuea-red: #ce1126;
+        --cuea-red-dark: #a50d1f;
+        --cuea-gold: #fcd116;
+        --cuea-ink: #000000;
     }
-
     .landing-wrap {
+        background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
         min-height: 100vh;
-        padding-bottom: 30px;
+        color: var(--cuea-ink);
     }
-
-    .landing-wrap h1,
-    .landing-wrap h2,
-    .landing-wrap h5,
-    .landing-wrap h6,
-    .landing-wrap .nav-link,
-    .landing-wrap .navbar-brand,
-    .landing-wrap .section-link {
-        color: var(--landing-text) !important;
-    }
-
-    .landing-wrap p,
-    .landing-wrap small,
-    .landing-wrap span,
-    .landing-wrap .text-muted {
-        color: var(--landing-subtext) !important;
-    }
-
     .status-ticker {
-        width: min(1240px, calc(100% - 32px));
-        margin: 16px auto 0;
-        border-radius: 999px;
-        border: 1px solid var(--landing-line);
-        background: linear-gradient(155deg, rgba(10, 26, 50, 0.86), rgba(15, 44, 72, 0.78));
-        box-shadow: 0 22px 38px rgba(3, 10, 22, 0.24);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 10px 18px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        flex-wrap: wrap;
+        background: #000000;
+        color: #fff;
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+        padding: 8px 0;
     }
-
-    .status-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.82rem;
-        letter-spacing: 0.04em;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    .status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #1fdb9f;
-        box-shadow: 0 0 0 6px rgba(31, 219, 159, 0.18);
-    }
-
     .landing-nav {
-        margin-top: 16px;
+        padding: 20px 0;
     }
-
-    .landing-nav .navbar {
-        border-radius: 22px;
-        border: 1px solid var(--landing-line);
-        background: linear-gradient(155deg, rgba(245, 251, 255, 0.18), rgba(220, 236, 255, 0.1));
-        box-shadow: 0 22px 42px rgba(4, 11, 24, 0.2);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        padding: 16px 18px;
-    }
-
     .landing-nav .nav-link {
-        font-weight: 650;
-        padding: 10px 12px;
-        border-radius: 10px;
-        transition: transform 0.2s ease, background-color 0.2s ease;
+        color: var(--cuea-ink);
+        font-weight: 600;
     }
-
     .landing-nav .nav-link:hover {
-        transform: translateY(-1px);
-        background: rgba(255, 255, 255, 0.12);
+        color: var(--cuea-red);
     }
-
     .brand-mark {
         display: inline-flex;
         align-items: center;
         gap: 12px;
     }
-
     .brand-mark img {
         height: 44px;
-        width: auto;
-        filter: drop-shadow(0 8px 16px rgba(4, 12, 30, 0.26));
     }
-
-    .brand-mark span {
-        font-size: 1.02rem;
-        font-weight: 750;
-        letter-spacing: 0.01em;
-    }
-
-    .navbar-toggler {
-        border: 1px solid rgba(255, 255, 255, 0.34);
-        background: rgba(255, 255, 255, 0.14);
-    }
-
-    .navbar-toggler:focus {
-        box-shadow: 0 0 0 3px rgba(210, 56, 80, 0.25);
-    }
-
     .hero {
-        padding: 56px 0 38px;
+        padding: 64px 0 48px;
     }
-
-    .hero-kicker {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        border-radius: 999px;
-        border: 1px solid var(--landing-line);
-        background: rgba(255, 255, 255, 0.14);
-        color: #f6fbff !important;
-        font-size: 0.75rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-weight: 780;
-        padding: 8px 12px;
-        margin-bottom: 18px;
-    }
-
     .hero h1 {
-        font-size: clamp(2.3rem, 4.4vw, 4rem);
-        line-height: 1.03;
-        max-width: 720px;
-        margin-bottom: 14px;
+        font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+        color: var(--cuea-ink);
     }
-
     .hero p {
-        font-size: clamp(1.03rem, 1.4vw, 1.2rem);
-        max-width: 560px;
+        font-size: 1.1rem;
+        color: #3b3b3b;
+        max-width: 520px;
     }
-
+    .hero-card {
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 24px 60px rgba(17, 24, 39, 0.12);
+        padding: 26px;
+    }
     .hero-search {
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.38);
-        background: rgba(255, 255, 255, 0.16) !important;
-        color: #f5f9ff !important;
-        padding: 12px 16px;
+        border: 1px solid #d9dce3;
+        padding: 12px 18px;
     }
-
-    .hero-search::placeholder {
-        color: rgba(222, 234, 249, 0.8);
-    }
-
     .btn-cuea {
-        border: none;
-        border-radius: 999px;
-        font-weight: 760;
-        padding: 12px 26px;
-        background: linear-gradient(135deg, #d23850, #922235);
-        color: #ffffff !important;
-        box-shadow: 0 14px 24px rgba(146, 34, 53, 0.3);
-    }
-
-    .btn-cuea:hover {
-        transform: translateY(-1px);
-        background: linear-gradient(135deg, #de4660, #a42a3f);
-        color: #ffffff !important;
-    }
-
-    .hero-card {
-        border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.34);
-        background: linear-gradient(160deg, rgba(245, 251, 255, 0.2), rgba(220, 236, 255, 0.11));
-        box-shadow: 0 30px 56px rgba(4, 11, 24, 0.26);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        padding: 24px;
-        height: 100%;
-    }
-
-    .hero-card h5 {
-        margin-bottom: 6px;
-    }
-
-    .hero-stats {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 16px;
-    }
-
-    .hero-stat {
-        border-radius: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        background: rgba(255, 255, 255, 0.12);
-        padding: 10px 12px;
-    }
-
-    .hero-stat-label {
-        font-size: 0.69rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-weight: 760;
-        color: #d2e2f5 !important;
-    }
-
-    .hero-stat-value {
-        font-size: 1.34rem;
-        line-height: 1.1;
-        margin-top: 4px;
-        color: #ffffff !important;
-        font-weight: 820;
-    }
-
-    .section-shell {
-        border-radius: 24px;
-        border: 1px solid var(--landing-line);
-        background: linear-gradient(160deg, rgba(245, 251, 255, 0.16), rgba(220, 236, 255, 0.08));
-        box-shadow: 0 24px 48px rgba(4, 11, 24, 0.2);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 24px;
-    }
-
-    .section-title {
-        font-size: clamp(1.4rem, 2vw, 1.8rem);
-        margin-bottom: 0;
-    }
-
-    .section-link {
+        background: var(--cuea-red);
+        border-color: var(--cuea-red);
+        color: #fff;
         font-weight: 700;
-        font-size: 0.92rem;
-        color: #f3f8ff !important;
-    }
-
-    .kb-card {
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        background: rgba(255, 255, 255, 0.12);
-        padding: 18px;
-        height: 100%;
-        transition: transform 0.24s ease, border-color 0.24s ease, background-color 0.24s ease;
-    }
-
-    .kb-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(255, 255, 255, 0.42);
-        background: rgba(255, 255, 255, 0.16);
-    }
-
-    .kb-card h5 {
-        font-size: 1.02rem;
-        margin-bottom: 8px;
-    }
-
-    .faq-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
-
-    .faq-item {
-        border-radius: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.26);
-        background: rgba(255, 255, 255, 0.1);
-        padding: 14px;
-    }
-
-    .footer {
-        margin-top: 24px;
-        color: #c7d6ea;
-    }
-
-    .footer a {
-        color: #e4eefb !important;
-    }
-
-    .landing-wrap .form-select,
-    .landing-wrap .form-control {
-        color: #eef5ff !important;
-    }
-
-    .landing-wrap .form-select {
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        background: rgba(255, 255, 255, 0.14);
-        padding-right: 32px;
-        min-width: 140px;
+        padding: 14px 32px;
     }
-
-    .landing-wrap .form-select option {
-        color: #0d203d;
+    .btn-cuea:hover {
+        background: var(--cuea-red-dark);
+        border-color: var(--cuea-red-dark);
+        color: #fff;
     }
-
-    .landing-wrap .form-control:focus,
-    .landing-wrap .form-select:focus {
-        background: rgba(255, 255, 255, 0.22);
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 16px;
     }
-
+    .kb-card {
+        border: 1px solid #eceef2;
+        border-radius: 18px;
+        padding: 20px;
+        background: #fff;
+        height: 100%;
+    }
+    .kb-card h5 {
+        font-size: 1.05rem;
+    }
+    .footer {
+        padding: 32px 0 40px;
+        color: #4b5563;
+        font-size: 0.95rem;
+    }
+    .visually-hidden-link {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
     @media (max-width: 991px) {
-        .status-ticker {
-            border-radius: 20px;
+        .landing-nav {
+            padding: 16px 0;
         }
-
-        .landing-nav .navbar {
-            padding: 14px;
-        }
-
         .navbar-collapse {
-            margin-top: 12px;
+            background: #ffffff;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            background: rgba(13, 31, 56, 0.8);
-            padding: 12px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            box-shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
         }
-
+        .brand-mark img {
+            height: 36px;
+        }
         .hero {
-            padding: 38px 0 26px;
+            padding: 40px 0 32px;
         }
-
+        .hero-card {
+            padding: 20px;
+        }
+        .hero-card .d-flex {
+            flex-direction: column;
+            gap: 12px;
+        }
         .hero-stats {
+            display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .faq-grid {
-            grid-template-columns: 1fr;
+            gap: 12px;
         }
     }
-
     @media (max-width: 576px) {
         .status-ticker {
-            width: calc(100% - 20px);
-            margin-top: 10px;
-            padding: 10px 12px;
+            font-size: 0.82rem;
+            padding: 6px 0;
         }
-
         .brand-mark {
             gap: 8px;
         }
-
-        .brand-mark img {
-            height: 34px;
-        }
-
         .brand-mark span {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
-
         .hero h1 {
             font-size: 2rem;
         }
-
+        .hero p {
+            font-size: 1rem;
+        }
+        .hero .d-flex {
+            flex-direction: column;
+        }
         .hero .btn-cuea,
         .hero .hero-search {
             width: 100%;
         }
-
-        .hero-stats {
-            grid-template-columns: 1fr;
+        .hero .btn-cuea {
+            padding: 16px 28px;
+            font-size: 1.05rem;
         }
-
-        .section-shell {
-            padding: 18px;
+        .section-title {
+            font-size: 1.35rem;
         }
     }
 </style>
@@ -387,18 +176,17 @@
 
 {% block content %}
 <div class="landing-wrap">
-    <div class="status-ticker" role="status" aria-live="polite">
-        <span class="status-pill"><span class="status-dot"></span>System status: All systems operational</span>
-        <small>Average response time today: 2.4 hours</small>
+    <div class="status-ticker text-center">
+        🟢 All Systems Operational
     </div>
 
     <header class="container landing-nav">
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand brand-mark" href="#top">
                 <img src="{% static 'img/cuea-logo.svg' %}" alt="CUEA logo">
-                <span>CUEA ICT Help Desk</span>
+                <span class="fw-bold">CUEA ICT Help Desk</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#landingNav" aria-controls="landingNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#landingNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="landingNav">
@@ -421,38 +209,32 @@
 
     <section class="container hero" id="top">
         <div class="row align-items-center g-4">
-            <div class="col-lg-7">
-                <span class="hero-kicker">Campus ICT Command Center</span>
-                <h1>Premium support workflows for the entire CUEA community.</h1>
-                <p>Report issues, track progress, and collaborate with technicians through one focused experience.</p>
+            <div class="col-lg-6">
+                <h1>Efficient ICT Support for CUEA Community</h1>
+                <p class="mt-3">Report technical issues, track your tickets, and get back to work faster.</p>
                 <div class="d-flex flex-wrap gap-3 mt-4">
                     <a class="btn btn-cuea" href="{% url 'reports:report_issue' %}">Report an Issue</a>
                     <form class="d-flex flex-grow-1" action="#knowledge-base">
-                        <input class="form-control hero-search" type="search" placeholder="Search knowledge base..." aria-label="Search for a solution">
+                        <input class="form-control hero-search" type="search" placeholder="Search for a solution..." aria-label="Search for a solution">
                     </form>
                 </div>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="hero-card">
-                    <div class="d-flex justify-content-between align-items-start gap-3">
+                    <h5 class="fw-bold">Quick Start</h5>
+                    <p class="text-muted">Students and staff can log tickets, monitor progress, and receive updates without delay.</p>
+                    <div class="d-flex gap-3 hero-stats">
                         <div>
-                            <h5 class="fw-bold">Command Center Snapshot</h5>
-                            <p class="mb-0">Live service indicators from today.</p>
+                            <div class="fw-bold text-uppercase text-muted" style="font-size: 0.75rem;">Avg Response</div>
+                            <div class="fs-4 fw-bold">2.4 hrs</div>
                         </div>
-                        <span class="chip-soft">Live</span>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="hero-stat">
-                            <div class="hero-stat-label">Resolved Today</div>
-                            <div class="hero-stat-value">38</div>
+                        <div>
+                            <div class="fw-bold text-uppercase text-muted" style="font-size: 0.75rem;">Resolved Today</div>
+                            <div class="fs-4 fw-bold">38</div>
                         </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-label">Active Queue</div>
-                            <div class="hero-stat-value">12</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-label">Avg First Reply</div>
-                            <div class="hero-stat-value">2.4h</div>
+                        <div>
+                            <div class="fw-bold text-uppercase text-muted" style="font-size: 0.75rem;">Active Tickets</div>
+                            <div class="fs-4 fw-bold">12</div>
                         </div>
                     </div>
                 </div>
@@ -460,55 +242,45 @@
         </div>
     </section>
 
-    <section class="container py-3" id="knowledge-base">
-        <div class="section-shell">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
-                <h2 class="section-title">Self-Service Knowledge Base</h2>
-                <a class="section-link" href="#faq">Browse all articles</a>
+    <section class="container py-4" id="knowledge-base">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="section-title">Self-Service Knowledge Base</h2>
+            <a class="text-decoration-none" style="color: var(--cuea-red);" href="#faq">Browse all articles</a>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="kb-card">
+                    <h5>How to reset Student Portal Password</h5>
+                    <p class="text-muted mb-0">Step-by-step guidance to regain access in minutes.</p>
+                </div>
             </div>
+            <div class="col-md-4">
+                <div class="kb-card">
+                    <h5>Connecting to University Wi-Fi</h5>
+                    <p class="text-muted mb-0">Securely join campus networks on any device.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="kb-card">
+                    <h5>Printer Configuration Guide</h5>
+                    <p class="text-muted mb-0">Set up printing for offices, labs, and hostels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="faq">
+        <div class="hero-card">
+            <h2 class="section-title">FAQ</h2>
             <div class="row g-3">
-                <div class="col-md-4">
-                    <article class="kb-card">
-                        <h5>Reset Student Portal Password</h5>
-                        <p class="mb-0">Quick recovery flow for locked or forgotten credentials.</p>
-                    </article>
-                </div>
-                <div class="col-md-4">
-                    <article class="kb-card">
-                        <h5>Connect to University Wi-Fi</h5>
-                        <p class="mb-0">Secure connection steps across mobile, desktop, and tablets.</p>
-                    </article>
-                </div>
-                <div class="col-md-4">
-                    <article class="kb-card">
-                        <h5>Printer Configuration Guide</h5>
-                        <p class="mb-0">Set up network printing for offices, labs, and hostels.</p>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="container py-4" id="faq">
-        <div class="section-shell">
-            <h2 class="section-title mb-3">FAQ</h2>
-            <div class="faq-grid">
-                <article class="faq-item">
+                <div class="col-md-6">
                     <h6 class="fw-bold">Who can submit a ticket?</h6>
-                    <p class="mb-0">All CUEA students, staff, and administrators can log in and request support.</p>
-                </article>
-                <article class="faq-item">
-                    <h6 class="fw-bold">How quickly are requests acknowledged?</h6>
-                    <p class="mb-0">Most tickets are acknowledged within a few hours during business days.</p>
-                </article>
-                <article class="faq-item">
-                    <h6 class="fw-bold">Can I track my issue history?</h6>
-                    <p class="mb-0">Yes, every account has a personal dashboard for ticket history and status changes.</p>
-                </article>
-                <article class="faq-item">
-                    <h6 class="fw-bold">Do staff have a live queue view?</h6>
-                    <p class="mb-0">Staff can use queue search, priority filters, and kanban to manage response flow.</p>
-                </article>
+                    <p class="text-muted mb-0">All CUEA students, staff, and administrators can log in and request support.</p>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="fw-bold">How fast will I get a response?</h6>
+                    <p class="text-muted mb-0">Most issues are acknowledged within a few hours during business days.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -516,10 +288,10 @@
     <footer class="container footer">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
             <div class="d-flex flex-wrap gap-3">
-                <a class="text-decoration-none" href="{% url 'users:login' %}">Admin Login</a>
-                <a class="text-decoration-none" href="#">Privacy Policy</a>
+                <a class="text-decoration-none text-muted" href="{% url 'users:login' %}">Admin Login</a>
+                <a class="text-decoration-none text-muted" href="#">Privacy Policy</a>
             </div>
-            <div>(c) 2026 Catholic University of Eastern Africa - ICT Department.</div>
+            <div>© 2026 Catholic University of Eastern Africa - ICT Department.</div>
         </div>
     </footer>
 </div>

@@ -10,48 +10,71 @@
 {% endblock %}
 
 {% block content %}
-<div class="row g-3 mb-2">
-    <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card metric-card h-100 border-left-primary">
+<div class="row">
+    <!-- Total Tickets Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary h-100 py-2">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Total Tickets</div>
-                    <div class="metric-value">{{ total_tickets }}</div>
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Tickets</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_tickets }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-ticket-fill fa-2x text-gray-300" style="font-size: 2rem;"></i>
+                    </div>
                 </div>
-                <span class="metric-icon"><i class="bi bi-ticket-fill"></i></span>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card metric-card h-100 border-left-success">
+
+    <!-- Resolved Tickets Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success h-100 py-2">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Resolved</div>
-                    <div class="metric-value">{{ resolved_tickets }}</div>
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Resolved</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ resolved_tickets }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-check-circle-fill fa-2x text-gray-300" style="font-size: 2rem;"></i>
+                    </div>
                 </div>
-                <span class="metric-icon"><i class="bi bi-check-circle-fill"></i></span>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card metric-card h-100 border-left-warning">
+
+    <!-- Open Tickets Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning h-100 py-2">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Pending</div>
-                    <div class="metric-value">{{ open_tickets }}</div>
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ open_tickets }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-exclamation-circle-fill fa-2x text-gray-300" style="font-size: 2rem;"></i>
+                    </div>
                 </div>
-                <span class="metric-icon"><i class="bi bi-exclamation-circle-fill"></i></span>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-2">
-        <div class="card metric-card h-100 border-left-info">
+
+    <!-- MTTR Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info h-100 py-2">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Avg Resolution Time</div>
-                    <div class="metric-value">{{ avg_resolution_time }}h</div>
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Avg Resolution Time</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ avg_resolution_time }} hrs</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-clock-history fa-2x text-gray-300" style="font-size: 2rem;"></i>
+                    </div>
                 </div>
-                <span class="metric-icon"><i class="bi bi-clock-history"></i></span>
             </div>
         </div>
     </div>
@@ -106,26 +129,14 @@
                         labels: statusLabels,
                         datasets: [{
                             data: statusCounts,
-                            backgroundColor: ['#2f7acc', '#d6a522', '#26a17b', '#b2203b'],
-                            hoverBackgroundColor: ['#235f9f', '#ad8419', '#1d7f61', '#8a1a30'],
-                            borderColor: 'rgba(255, 255, 255, 0.74)',
-                            hoverBorderColor: 'rgba(255, 255, 255, 0.92)',
-                            borderWidth: 2,
+                            backgroundColor: ['#2f6fed', '#fcd116', '#1cc88a', '#1cc88a'],
+                            hoverBackgroundColor: ['#1f56c7', '#d6af11', '#16996a', '#16996a'],
+                            hoverBorderColor: "rgba(234, 236, 244, 1)",
                         }],
                     },
                     options: {
                         maintainAspectRatio: false,
-                        cutout: '72%',
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    color: '#4a607d',
-                                    boxWidth: 12,
-                                    padding: 14,
-                                },
-                            },
-                        },
+                        cutout: '70%',
                     },
                 });
 
@@ -140,16 +151,15 @@
                         labels: activityLabels,
                         datasets: [{
                             label: "New Tickets",
-                            tension: 0.36,
-                            fill: true,
-                            backgroundColor: "rgba(210, 56, 80, 0.12)",
-                            borderColor: "rgba(210, 56, 80, 0.98)",
-                            pointRadius: 3.4,
-                            pointBackgroundColor: "rgba(210, 56, 80, 0.98)",
-                            pointBorderColor: "rgba(255, 255, 255, 0.92)",
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: "rgba(210, 56, 80, 1)",
-                            pointHoverBorderColor: "rgba(255, 255, 255, 1)",
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(206, 17, 38, 0.08)",
+                            borderColor: "rgba(206, 17, 38, 1)",
+                            pointRadius: 3,
+                            pointBackgroundColor: "rgba(206, 17, 38, 1)",
+                            pointBorderColor: "rgba(206, 17, 38, 1)",
+                            pointHoverRadius: 3,
+                            pointHoverBackgroundColor: "rgba(206, 17, 38, 1)",
+                            pointHoverBorderColor: "rgba(206, 17, 38, 1)",
                             pointHitRadius: 10,
                             pointBorderWidth: 2,
                             data: activityCounts,
@@ -158,32 +168,6 @@
                     options: {
                         maintainAspectRatio: false,
                         layout: { padding: { left: 10, right: 25, top: 25, bottom: 0 } },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: '#4a607d',
-                                },
-                            },
-                        },
-                        scales: {
-                            x: {
-                                grid: {
-                                    color: 'rgba(151, 176, 208, 0.24)',
-                                },
-                                ticks: {
-                                    color: '#556c88',
-                                },
-                            },
-                            y: {
-                                beginAtZero: true,
-                                grid: {
-                                    color: 'rgba(151, 176, 208, 0.24)',
-                                },
-                                ticks: {
-                                    color: '#556c88',
-                                },
-                            },
-                        },
                     }
                 });
             });

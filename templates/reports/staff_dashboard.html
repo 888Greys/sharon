@@ -17,46 +17,34 @@
 
 <div class="row g-3 mb-4">
     <div class="col-md-6 col-xl-3">
-        <div class="card shadow-sm metric-card">
+        <div class="card shadow-sm">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">My Open Tickets</div>
-                    <div class="metric-value">{{ my_open_tickets }}</div>
-                </div>
-                <span class="metric-icon"><i class="bi bi-list-task"></i></span>
+                <div class="text-muted text-uppercase small">My Open Tickets</div>
+                <div class="fs-4 fw-bold">{{ my_open_tickets }}</div>
             </div>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
-        <div class="card shadow-sm metric-card">
+        <div class="card shadow-sm">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">High / Critical</div>
-                    <div class="metric-value">{{ high_priority }}</div>
-                </div>
-                <span class="metric-icon"><i class="bi bi-exclamation-diamond"></i></span>
+                <div class="text-muted text-uppercase small">High / Critical</div>
+                <div class="fs-4 fw-bold">{{ high_priority }}</div>
             </div>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
-        <div class="card shadow-sm metric-card">
+        <div class="card shadow-sm">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Escalated</div>
-                    <div class="metric-value">{{ escalated }}</div>
-                </div>
-                <span class="metric-icon"><i class="bi bi-flag-fill"></i></span>
+                <div class="text-muted text-uppercase small">Escalated</div>
+                <div class="fs-4 fw-bold">{{ escalated }}</div>
             </div>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
-        <div class="card shadow-sm metric-card">
+        <div class="card shadow-sm">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Avg Response Time</div>
-                    <div class="metric-value">{{ avg_response_time }}h</div>
-                </div>
-                <span class="metric-icon"><i class="bi bi-stopwatch"></i></span>
+                <div class="text-muted text-uppercase small">Avg Response Time</div>
+                <div class="fs-4 fw-bold">{{ avg_response_time }} hrs</div>
             </div>
         </div>
     </div>
@@ -170,7 +158,7 @@
                             {% else %}
                             <span class="badge badge-priority badge-priority-low">Low</span>
                             {% endif %}
-                            <span class="chip-soft">{{ ticket.category.name|default:"Uncategorized" }}</span>
+                            <span class="badge bg-light text-dark">{{ ticket.category.name|default:"Uncategorized" }}</span>
                         </div>
                         <div class="mobile-label">Requester</div>
                         <div class="mb-2">{{ ticket.created_by.get_full_name|default:ticket.created_by.username }}</div>

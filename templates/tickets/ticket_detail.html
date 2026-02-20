@@ -132,7 +132,7 @@
             </div>
             <div class="card-body">
                 {% for note in internal_notes %}
-                <div class="mb-3 p-3 note-card">
+                <div class="mb-3 p-3 bg-light rounded">
                     <div class="d-flex justify-content-between">
                         <strong>{{ note.user.get_full_name|default:note.user.username }}</strong>
                         <small class="text-muted">{{ note.created_at|timesince }} ago</small>
@@ -204,7 +204,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-info">Recommended Solutions</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body bg-light">
                 <ul class="mb-0">
                     {% for solution in recommended_solutions %}
                     <li class="mb-2">{{ solution }}</li>
@@ -217,7 +217,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-info"><i class="bi bi-lightbulb"></i> AI Suggestion</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body bg-light">
                 {{ ticket.suggested_solution }}
             </div>
         </div>
@@ -233,4 +233,52 @@
         </div>
     </div>
 </div>
+
+<style>
+    textarea {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        resize: vertical;
+    }
+    .chat-thread {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .chat-row {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .chat-row--self {
+        justify-content: flex-end;
+    }
+    .chat-bubble {
+        background: #f2f4f7;
+        border-radius: 16px;
+        padding: 12px 16px;
+        max-width: 72%;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+    .chat-row--self .chat-bubble {
+        background: #ce1126;
+        color: #ffffff;
+    }
+    .chat-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+        gap: 12px;
+    }
+    .chat-row--self .chat-meta {
+        color: rgba(255, 255, 255, 0.85);
+    }
+    .chat-text p {
+        margin-bottom: 0;
+    }
+</style>
 {% endblock %}

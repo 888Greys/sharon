@@ -87,7 +87,7 @@
                         {% else %}
                         <span class="badge badge-priority badge-priority-low">Low</span>
                         {% endif %}
-                        <span class="chip-soft">{{ ticket.category.name|default:"Uncategorized" }}</span>
+                        <span class="badge bg-light text-dark">{{ ticket.category.name|default:"Uncategorized" }}</span>
                     </div>
                     <div class="mobile-label">Created</div>
                     <div class="mb-2">{{ ticket.created_at|date:"M d, Y" }}</div>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>My Kenyan Girl Illustration</h1>
+
+    <!-- Paste the SVG code right here -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="100%" height="100%">
+        <defs>
+            <!-- Background Gradient -->
+            <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fdf2e9" />
+                <stop offset="100%" stop-color="#fad7a1" />
+            </linearGradient>
+
+            <!-- Skin Tone Gradient -->
+            <linearGradient id="skin" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#734226" />
+                <stop offset="100%" stop-color="#4a2512" />
+            </linearGradient>
+
+            <!-- Chest Clipping Path for Collar -->
+            <clipPath id="chestClip">
+                <path d="M 60 500 C 60 330, 120 310, 200 310 C 280 310, 340 330, 340 500 Z" />
+            </clipPath>
+        </defs>
+
+        <!-- Background -->
+        <rect width="400" height="500" fill="url(#bgGrad)" />
+
+        <!-- Glowing Sun -->
+        <circle cx="200" cy="250" r="150" fill="#f8c471" opacity="0.4" />
+        <circle cx="200" cy="250" r="100" fill="#f5b041" opacity="0.4" />
+
+        <!-- Back Hair & Afro Puffs -->
+        <g id="hair" fill="#1c1c1c">
+            <!-- Back crown -->
+            <circle cx="200" cy="150" r="70" />
+
+            <!-- Left Puff Fluff -->
+            <circle cx="105" cy="140" r="45" />
+            <circle cx="75" cy="120" r="25" />
+            <circle cx="70" cy="150" r="25" />
+            <circle cx="95" cy="175" r="25" />
+            <circle cx="130" cy="105" r="25" />
+
+            <!-- Right Puff Fluff -->
+            <circle cx="295" cy="140" r="45" />
+            <circle cx="325" cy="120" r="25" />
+            <circle cx="330" cy="150" r="25" />
+            <circle cx="305" cy="175" r="25" />
+            <circle cx="270" cy="105" r="25" />
+
+            <!-- Top Crown Texture -->
+            <circle cx="160" cy="90" r="25" />
+            <circle cx="200" cy="80" r="25" />
+            <circle cx="240" cy="90" r="25" />
+        </g>
+
+        <!-- Hair Texture Highlights -->
+        <g fill="#3a2318" opacity="0.3">
+            <circle cx="100" cy="120" r="15" />
+            <circle cx="300" cy="120" r="15" />
+            <circle cx="200" cy="95" r="15" />
+        </g>
+
+        <!-- Hair Accessories (Beads) -->
+        <circle cx="125" cy="140" r="6" fill="#f1c40f" />
+        <circle cx="132" cy="130" r="6" fill="#e74c3c" />
+        <circle cx="275" cy="140" r="6" fill="#f1c40f" />
+        <circle cx="268" cy="130" r="6" fill="#e74c3c" />
+
+        <!-- Ears -->
+        <ellipse cx="125" cy="220" rx="12" ry="20" fill="url(#skin)" />
+        <ellipse cx="275" cy="220" rx="12" ry="20" fill="url(#skin)" />
+
+        <!-- Beaded Earrings -->
+        <g id="earrings">
+            <!-- Left Earring -->
+            <line x1="125" y1="240" x2="125" y2="255" stroke="#f1c40f" stroke-width="2" />
+            <circle cx="125" cy="258" r="4" fill="#e74c3c" />
+            <circle cx="125" cy="268" r="4" fill="#27ae60" />
+            <circle cx="125" cy="278" r="4" fill="#ffffff" />
+            <!-- Right Earring -->
+            <line x1="275" y1="240" x2="275" y2="255" stroke="#f1c40f" stroke-width="2" />
+            <circle cx="275" cy="258" r="4" fill="#e74c3c" />
+            <circle cx="275" cy="268" r="4" fill="#27ae60" />
+            <circle cx="275" cy="278" r="4" fill="#ffffff" />
+        </g>
+
+        <!-- Neck -->
+        <path d="M 170 250 L 170 330 C 185 340, 215 340, 230 330 L 230 250 Z" fill="url(#skin)" />
+
+        <!-- Neck Shadow -->
+        <path d="M 170 280 L 170 310 Q 200 320 230 310 L 230 280 Z" fill="#2d160a" opacity="0.4" />
+
+        <!-- Chest & Dress (Base) -->
+        <path d="M 60 500 C 60 330, 120 310, 200 310 C 280 310, 340 330, 340 500 Z" fill="#1e8449" />
+
+        <!-- African Print Dress Pattern (Subtle geometric overlay) -->
+        <g clip-path="url(#chestClip)" opacity="0.15" fill="#000000">
+            <polygon points="100,500 130,450 160,500" />
+            <polygon points="160,500 190,450 220,500" />
+            <polygon points="220,500 250,450 280,500" />
+            <polygon points="280,500 310,450 340,500" />
+            <polygon points="130,450 160,400 190,450" />
+            <polygon points="190,450 220,400 250,450" />
+            <polygon points="250,450 280,400 310,450" />
+            <polygon points="160,400 190,350 220,400" />
+            <polygon points="70,500 100,450 130,500" />
+        </g>
+
+        <!-- Maasai-Inspired Beaded Collar (Clipped to Chest bounds) -->
+        <g clip-path="url(#chestClip)">
+            <circle cx="200" cy="310" r="95" fill="none" stroke="#e74c3c" stroke-width="12" />
+            <circle cx="200" cy="310" r="83" fill="none" stroke="#f1c40f" stroke-width="12" />
+            <circle cx="200" cy="310" r="71" fill="none" stroke="#27ae60" stroke-width="12" />
+            <circle cx="200" cy="310" r="59" fill="none" stroke="#ffffff" stroke-width="12" />
+            <circle cx="200" cy="310" r="47" fill="none" stroke="#111111" stroke-width="12" />
+            <circle cx="200" cy="310" r="35" fill="#111111" />
+        </g>
+
+        <!-- Face Base -->
+        <ellipse cx="200" cy="210" rx="70" ry="85" fill="url(#skin)" />
+
+        <!-- Face Highlights -->
+        <ellipse cx="200" cy="185" rx="20" ry="8" fill="#8c5535" opacity="0.4" />
+        <path d="M 200 220 L 200 240" stroke="#8c5535" stroke-width="2.5" stroke-linecap="round" fill="none"
+            opacity="0.6" />
+
+        <!-- Kenyan Flag Headband -->
+        <g id="headband">
+            <!-- Black Stripe -->
+            <path d="M 125 150 Q 200 130 275 150 L 280 160 Q 200 140 120 160 Z" fill="#111111" />
+            <!-- Red Stripe -->
+            <path d="M 120 160 Q 200 140 280 160 L 285 170 Q 200 150 115 170 Z" fill="#e74c3c" />
+            <!-- Green Stripe -->
+            <path d="M 115 170 Q 200 150 285 170 L 290 180 Q 200 160 110 180 Z" fill="#1e8449" />
+            <!-- White Dividers -->
+            <path d="M 120 160 Q 200 140 280 160" stroke="#ffffff" stroke-width="1.5" fill="none" />
+            <path d="M 115 170 Q 200 150 285 170" stroke="#ffffff" stroke-width="1.5" fill="none" />
+        </g>
+
+        <!-- Hair Overlay (Integrates headband ends smoothly into afro) -->
+        <circle cx="115" cy="165" r="14" fill="#1c1c1c" />
+        <circle cx="285" cy="165" r="14" fill="#1c1c1c" />
+
+        <!-- Eyebrows -->
+        <path d="M 150 192 Q 165 182, 180 190" stroke="#221105" stroke-width="3.5" fill="none" stroke-linecap="round" />
+        <path d="M 250 192 Q 235 182, 220 190" stroke="#221105" stroke-width="3.5" fill="none" stroke-linecap="round" />
+
+        <!-- Left Eye -->
+        <g id="left-eye">
+            <!-- Sclera (White) -->
+            <path d="M 155 210 C 160 198, 175 198, 180 210 C 175 218, 160 218, 155 210 Z" fill="#ffffff" />
+            <!-- Iris & Pupil -->
+            <circle cx="168" cy="209" r="4.5" fill="#3a1c15" />
+            <circle cx="168" cy="209" r="2.5" fill="#000000" />
+            <!-- Catchlights (Sparkles) -->
+            <circle cx="166" cy="207" r="1.5" fill="#ffffff" />
+            <circle cx="170" cy="211" r="0.8" fill="#ffffff" />
+            <!-- Eyelids & Lashes -->
+            <path d="M 152 210 C 160 196, 178 196, 183 210" stroke="#111" stroke-width="2.5" fill="none"
+                stroke-linecap="round" />
+            <path d="M 152 210 L 148 206" stroke="#111" stroke-width="2" stroke-linecap="round" />
+            <path d="M 157 203 L 153 198" stroke="#111" stroke-width="2" stroke-linecap="round" />
+        </g>
+
+        <!-- Right Eye -->
+        <g id="right-eye">
+            <!-- Sclera (White) -->
+            <path d="M 220 210 C 225 198, 240 198, 245 210 C 240 218, 225 218, 220 210 Z" fill="#ffffff" />
+            <!-- Iris & Pupil -->
+            <circle cx="233" cy="209" r="4.5" fill="#3a1c15" />
+            <circle cx="233" cy="209" r="2.5" fill="#000000" />
+            <!-- Catchlights (Sparkles) -->
+            <circle cx="231" cy="207" r="1.5" fill="#ffffff" />
+            <circle cx="235" cy="211" r="0.8" fill="#ffffff" />
+            <!-- Eyelids & Lashes -->
+            <path d="M 217 210 C 225 196, 243 196, 248 210" stroke="#111" stroke-width="2.5" fill="none"
+                stroke-linecap="round" />
+            <path d="M 248 210 L 252 206" stroke="#111" stroke-width="2" stroke-linecap="round" />
+            <path d="M 243 203 L 247 198" stroke="#111" stroke-width="2" stroke-linecap="round" />
+        </g>
+
+        <!-- Cheeks (Blush) -->
+        <ellipse cx="155" cy="235" rx="14" ry="10" fill="#d35400" opacity="0.3" />
+        <ellipse cx="245" cy="235" rx="14" ry="10" fill="#d35400" opacity="0.3" />
+
+        <!-- Nose -->
+        <path d="M 190 235 Q 200 245 210 235" stroke="#3d2110" stroke-width="3" fill="none" stroke-linecap="round" />
+        <circle cx="188" cy="235" r="2" fill="#3d2110" opacity="0.6" />
+        <circle cx="212" cy="235" r="2" fill="#3d2110" opacity="0.6" />
+
+        <!-- Smile / Mouth -->
+        <g id="mouth">
+            <!-- Dark inner mouth -->
+            <path d="M 175 260 C 175 260, 200 270, 225 260 C 225 260, 200 290, 175 260 Z" fill="#30150a" />
+            <!-- Teeth -->
+            <path d="M 180 262 C 180 262, 200 268, 220 262 C 220 262, 200 280, 180 262 Z" fill="#ffffff" />
+            <!-- Lower Lip -->
+            <path d="M 175 260 C 175 260, 200 295, 225 260 C 215 285, 185 285, 175 260 Z" fill="#a04030" />
+            <!-- Upper Lip -->
+            <path d="M 172 260 C 185 250, 215 250, 228 260 C 215 258, 185 258, 172 260 Z" fill="#752a1b" />
+        </g>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" ...>
+        ...
+    </svg>
+
+</body>
+
+</html>

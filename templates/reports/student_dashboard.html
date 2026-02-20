@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    Alert: Campus Wi-Fi is undergoing maintenance this Saturday.
+    ⚠️ Campus Wi-Fi is undergoing maintenance this Saturday.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
@@ -18,35 +18,26 @@
 
 <div class="row g-3 mb-4">
     <div class="col-md-4">
-        <div class="card shadow-sm metric-card">
+        <div class="card shadow-sm">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Open Tickets</div>
-                    <div class="metric-value">{{ open_tickets }}</div>
-                </div>
-                <span class="metric-icon"><i class="bi bi-folder2-open"></i></span>
+                <div class="text-muted text-uppercase small">Open Tickets</div>
+                <div class="fs-4 fw-bold">{{ open_tickets }}</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card shadow-sm metric-card">
+        <div class="card shadow-sm">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Resolved Tickets</div>
-                    <div class="metric-value">{{ resolved_tickets }}</div>
-                </div>
-                <span class="metric-icon"><i class="bi bi-check2-circle"></i></span>
+                <div class="text-muted text-uppercase small">Resolved Tickets</div>
+                <div class="fs-4 fw-bold">{{ resolved_tickets }}</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card shadow-sm metric-card">
+        <div class="card shadow-sm">
             <div class="card-body">
-                <div>
-                    <div class="metric-label">Pending Action</div>
-                    <div class="metric-value">{{ pending_action }}</div>
-                </div>
-                <span class="metric-icon"><i class="bi bi-hourglass-split"></i></span>
+                <div class="text-muted text-uppercase small">Pending Action</div>
+                <div class="fs-4 fw-bold">{{ pending_action }}</div>
             </div>
         </div>
     </div>
